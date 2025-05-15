@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+
 const authRoutes = require("./routes/auth");
 const mealRoutes = require("./routes/meals");
 const workoutRoutes = require("./routes/workouts");
@@ -8,18 +9,14 @@ const workoutRoutes = require("./routes/workouts");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ CORS setup for deployment
+// 🛡️ Proper CORS setup
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000", // for local dev
-      "https://fitness-tracker-client.onrender.com", // change this to your actual frontend link
-    ],
+    origin: "https://fitness-tracker-client.onrender.com",
     credentials: true,
   })
 );
 
-// Middleware
 app.use(express.json());
 
 // Routes
