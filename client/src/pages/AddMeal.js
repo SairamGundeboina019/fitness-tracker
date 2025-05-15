@@ -22,9 +22,12 @@ const AddMeal = () => {
 
   const getLastMeal = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/meals", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/meals`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       const data = res.data;
       if (data.length > 0) setLastMeal(data[data.length - 1]);
     } catch (err) {
@@ -34,9 +37,12 @@ const AddMeal = () => {
 
   const fetchAllMeals = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/meals", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/meals`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       setMeals(res.data.reverse());
     } catch (err) {
       console.error("Error fetching meals:", err);
@@ -54,9 +60,13 @@ const AddMeal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/meals", form, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/meals`,
+        form,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       setMeals([res.data, ...meals]);
       setForm({
         meal_name: "",
@@ -72,7 +82,7 @@ const AddMeal = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/meals/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/meals/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setMeals(meals.filter((meal) => meal.id !== id));
@@ -85,7 +95,7 @@ const AddMeal = () => {
   const handleModalEdit = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/meals/${editData.id}`,
+        `${process.env.REACT_APP_API_URL}/api/meals/${editData.id}`,
         editData,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

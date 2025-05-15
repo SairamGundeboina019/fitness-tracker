@@ -20,9 +20,12 @@ const AddWorkout = () => {
 
   const fetchAllWorkouts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/workouts", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/workouts`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       setWorkouts(res.data.reverse());
     } catch (err) {
       console.error("Error fetching workouts:", err);
@@ -36,9 +39,13 @@ const AddWorkout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/workouts", form, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/workouts`,
+        form,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       setWorkouts([res.data, ...workouts]);
       setForm({ workout_name: "", type: "", duration_minutes: "" });
     } catch (err) {
@@ -48,9 +55,12 @@ const AddWorkout = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/workouts/${id}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/api/workouts/${id}`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       setWorkouts(workouts.filter((w) => w.id !== id));
       setSelectedWorkout(null);
     } catch (err) {
@@ -61,7 +71,7 @@ const AddWorkout = () => {
   const handleModalEdit = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/workouts/${editData.id}`,
+        `${process.env.REACT_APP_API_URL}/api/workouts/${editData.id}`,
         editData,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
