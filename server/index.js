@@ -7,7 +7,7 @@ const mealRoutes = require("./routes/meals");
 const workoutRoutes = require("./routes/workouts");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 
 // 🛡️ Proper CORS setup
 app.use(
