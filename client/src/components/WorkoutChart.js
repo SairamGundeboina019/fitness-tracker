@@ -38,7 +38,7 @@ const WorkoutChart = ({ workouts }) => {
         });
 
         const formatted = past7.map((date) => ({
-          date: date.slice(5),
+          date: date.slice(5), // MM-DD
           minutes: workoutMap[date] || 0,
         }));
 
@@ -49,7 +49,7 @@ const WorkoutChart = ({ workouts }) => {
     };
 
     fetchWorkouts();
-  }, [workouts]); // ✅ RUNS EVERY TIME workouts state changes
+  }, [workouts]);
 
   return (
     <div className="bg-white shadow p-6 rounded my-12">
