@@ -78,13 +78,13 @@ router.get("/weekly-summary", verifyToken, async (req, res) => {
     const result = await pool.query(
       `
         SELECT 
-    TO_CHAR(workout_time, 'YYYY-MM-DD') as date,
+          TO_CHAR(workout_time, 'YYYY-MM-DD') as date,
           SUM(duration_minutes) as total_duration
         FROM workouts
-        WHERE user_id = $1 AND workout_date >= NOW() - INTERVAL '7 days'
+        WHERE user_id = $1 AND workout_time >= NOW() - INTERVAL '7 days'
         GROUP BY date
         ORDER BY date ASC
-        `,
+      `,
       [req.user.id]
     );
     res.json(result.rows);
