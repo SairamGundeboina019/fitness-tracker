@@ -17,7 +17,7 @@ const WorkoutChart = ({ workouts }) => {
     const fetchWorkouts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/workouts/weekly-summary",
+          `${process.env.REACT_APP_API_URL}/api/workouts/weekly-summary`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
