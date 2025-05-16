@@ -9,7 +9,7 @@ router.post("/", verifyToken, async (req, res) => {
   try {
     const newWorkout = await pool.query(
       `INSERT INTO workouts (user_id, workout_name, type, duration_minutes)
-       VALUES ($1, $2, $3, $4) RETURNING *`,
+        VALUES ($1, $2, $3, $4) RETURNING *`,
       [req.user.id, workout_name, type, duration_minutes]
     );
     res.json(newWorkout.rows[0]);
@@ -39,9 +39,9 @@ router.put("/:id", verifyToken, async (req, res) => {
   try {
     const result = await pool.query(
       `UPDATE workouts
-       SET workout_name = $1, type = $2, duration_minutes = $3
-       WHERE id = $4 AND user_id = $5
-       RETURNING *`,
+        SET workout_name = $1, type = $2, duration_minutes = $3
+        WHERE id = $4 AND user_id = $5
+        RETURNING *`,
       [workout_name, type, duration_minutes, req.params.id, req.user.id]
     );
 
@@ -77,14 +77,14 @@ router.get("/weekly-summary", verifyToken, async (req, res) => {
   try {
     const result = await pool.query(
       `
-      SELECT 
-        TO_CHAR(workout_date, 'YYYY-MM-DD') as date,
-        SUM(duration_minutes) as total_duration
-      FROM workouts
-      WHERE user_id = $1 AND workout_date >= NOW() - INTERVAL '7 days'
-      GROUP BY date
-      ORDER BY date ASC
-      `,
+        SELECT 
+    TO_CHAR(workout_time, 'YYYY-MM-DD') as date,
+          SUM(duration_minutes) as total_duration
+        FROM workouts
+        WHERE user_id = $1 AND workout_date >= NOW() - INTERVAL '7 days'
+        GROUP BY date
+        ORDER BY date ASC
+        `,
       [req.user.id]
     );
     res.json(result.rows);
