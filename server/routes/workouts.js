@@ -23,7 +23,7 @@ router.post("/", verifyToken, async (req, res) => {
 router.get("/", verifyToken, async (req, res) => {
   try {
     const result = await pool.query(
-      `SELECT * FROM workouts WHERE user_id = $1 ORDER BY workout_date DESC`,
+      `SELECT * FROM workouts WHERE user_id = $1 ORDER BY workout_time DESC`,
       [req.user.id]
     );
     res.json(result.rows);

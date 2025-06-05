@@ -23,7 +23,7 @@ const HealthinessScoreBar = ({ meals, workouts }) => {
     });
 
     workouts.forEach((workout) => {
-      const date = workout.workout_date?.slice(0, 10);
+      const date = workout.workout_time?.slice(0, 10);
       if (date === today) {
         workoutMinutes += Number(workout.duration_minutes || 0);
       }
